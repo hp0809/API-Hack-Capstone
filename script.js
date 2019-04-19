@@ -91,8 +91,4 @@ function songArtistInfo () {
 });
 }
 
-
-//var url = "https://www.youtube.com/embed/" + videoID;
- //$('#myIframe').attr('src', url)
-
 $(songArtistInfo);
