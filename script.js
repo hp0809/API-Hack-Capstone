@@ -1,4 +1,4 @@
-const apiKey = 'AIzaSyCb6O7wMu1vpbESA_LsgLJ98CIaW9aIFss'; 
+const apiKey = ??; 
 const searchURL = 'https://www.googleapis.com/youtube/v3/search';
 
 function formatQueryParams(params) {
