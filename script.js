@@ -24,7 +24,7 @@ function embedVideo(responseJson) {
 function displayLyrics(responseJson) {
   console.log(responseJson)
   $('.lyrics').empty();
-  $('.lyrics').append(`<p>${responseJson.mus[0].text}</p>`);
+  $('.lyrics').append(`<pre>${responseJson.mus[0].text}</pre>`);
   $('.songArtistInfo').removeClass('hidden');
 }
 
@@ -47,7 +47,7 @@ function getLyrics(query) {
     })
     .then(responseJson => displayLyrics(responseJson))
     .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+      $('#js-lyrics-error-message').text(`Sorry there is no lyrics for this song: ${err.message}`);
     });
 }
 
