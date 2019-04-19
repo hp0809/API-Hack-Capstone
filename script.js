@@ -1,5 +1,9 @@
-const apiKey = 'AIzaSyCb6O7wMu1vpbESA_LsgLJ98CIaW9aIFss'; 
-const searchURL = 'https://www.googleapis.com/youtube/v3/search';
+const videoApiKey =
+'AIzaSyBM4OnGVBii8BA51unrlgRMHOT5yeMdUGo'; 
+const searchVideoURL = 'https://www.googleapis.com/youtube/v3/search';
+
+const lyricsApiKey = '0020098da67bd5dc1b21c2522b2edf4f';
+const searchLyricsURL = 'https://api.vagalume.com.br/search.php';
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -13,20 +17,50 @@ function embedVideo(responseJson) {
   const url = `https://www.youtube.com/embed/${responseJson.items[0].id.videoId}`;
   console.log(url);
   
- $('.video').append(`<iframe width="640" height="360"
-  src="https://www.youtube.com/embed/${responseJson.items[0].id.videoId}?playsinline=1"></iframe>`);
+  $('.video').append(`<iframe width="640" height="360" src="https://www.youtube.com/embed/${responseJson.items[0].id.videoId}?playsinline=1"></iframe>`);
   $('.songArtistInfo').removeClass('hidden');
 }
 
-function getVideo(query) {
+function displayLyrics(responseJson) {
+  console.log(responseJson)
+  $('.lyrics').empty();
+  $('.lyrics').append(`<p>${responseJson.mus[0].text}</p>`);
+  $('.songArtistInfo').removeClass('hidden');
+}
+
+function getLyrics(query) {
+  const params = {
+    key: lyricsApiKey,
+    art: $('#userSelectedArtist').val(),
+    mus: $('#userSelectedSong').val()
+  }
+  const queryString = formatQueryParams(params);
+  const url = searchLyricsURL + '?' + queryString;
+  console.log(url);
+
+   fetch(url)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then(responseJson => displayLyrics(responseJson))
+    .catch(err => {
+      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+    });
+}
+
+function getVideo(query, videoEmbeddable=true) {
    const params = {
-    key: apiKey,
+    key: videoApiKey,
     q: query,
+    videoEmbeddable,
     part: 'snippet',
     type: 'video'
   };
-  const queryString = formatQueryParams(params)
-  const url = searchURL + '?' + queryString;
+  const queryString = formatQueryParams(params);
+  const url = searchVideoURL + '?' + queryString;
 
   console.log(url);
   
@@ -50,11 +84,10 @@ function songArtistInfo () {
   console.log('songArtistInfo ran');
   $('form').on('click', '.submitButton', event => {
     event.preventDefault();
-    //$('.songArtistInfo').removeClass('hidden'); 
-    //});
   const search = $('#userSelectedArtist').val() + $('#userSelectedSong').val();
   const maxResults = 10;
   getVideo(search);
+  getLyrics(search);
 });
 }
 
