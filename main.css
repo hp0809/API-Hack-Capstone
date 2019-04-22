@@ -165,9 +165,10 @@
     text-align:center;
     margin-right: auto;
     margin-left: auto;
-    overflow-x: auto;
+    overflow-x: visible;
     overflow-y: visible;
     margin-bottom: 25px;
+    height: 100%;
   }
   pre {
     font-family: 'Lato', sans-serif;
