@@ -14,18 +14,34 @@ function formatQueryParams(params) {
 function embedVideo(responseJson) {
   console.log(responseJson);
   $('.video').empty();
-  const url = `https://www.youtube.com/embed/${responseJson.items[0].id.videoId}`;
-  console.log(url);
-  
-  $('.video').append(`<iframe width="640" height="360" src="https://www.youtube.com/embed/${responseJson.items[0].id.videoId}?playsinline=1"></iframe>`);
-  $('.songArtistInfo').removeClass('hidden');
-}
+  $(`#results-list`).empty();
+  $(`#player`).replaceWith($(`<div class="results">
+              <h3>Please choose a video!</h3>
+              <ul id="results-list">
+              </ul>
+            </div>`));
+  $('#js-video-error-message').empty();
+  for (let i = 0; i < responseJson.items.length; i++){
+    $('#results-list').append(
+      `<li><a  src="https://youtu.be/${responseJson.items[i].id.videoId}"><h3>${responseJson.items[i].snippet.title}</h3></a>
+      <img src="${responseJson.items[i].snippet.thumbnails.default.url}">
+      </li>`
+      )
+    $(`h3`).on(`click`, event => {
+      $(`#results-list`).remove();
+      $('.results').replaceWith(`<div id="player" class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/${responseJson.items[i].id.videoId}?enablejsapi=1"></iframe></div>`);
+      });
+    }
+  }
 
 function displayLyrics(responseJson) {
   console.log(responseJson)
   $('.lyrics').empty();
+  $('#js-lyrics-error-message').empty();
   $('.lyrics').append(`<pre>${responseJson.mus[0].text}</pre>`);
+  console.log(`${responseJson.mus[0].text}`);
   $('.songArtistInfo').removeClass('hidden');
+  $(`.lyrics`).removeClass(`hidden`);
 }
 
 function getLyrics(query) {
@@ -47,23 +63,21 @@ function getLyrics(query) {
     })
     .then(responseJson => displayLyrics(responseJson))
     .catch(err => {
-      $('#js-lyrics-error-message').text(`Sorry there is no lyrics for this song: ${err.message}`);
+      $('#js-lyrics-error-message').text(`Sorry, there are no lyrics for this song. Please check your spelling or try a different song.`);
     });
 }
 
-function getVideo(query, videoEmbeddable=true) {
+function getVideo(query, videoEmbeddable=true, maxResults=3) {
    const params = {
     key: videoApiKey,
     q: query,
     videoEmbeddable,
+    maxResults,
     part: 'snippet',
     type: 'video'
   };
   const queryString = formatQueryParams(params);
   const url = searchVideoURL + '?' + queryString;
-
-  console.log(url);
-  
 
   fetch(url)
     .then(response => {
@@ -71,21 +85,20 @@ function getVideo(query, videoEmbeddable=true) {
         return response.json();
       }
       throw new Error(response.statusText);
+      console.log(response.statusText);
     })
     .then(responseJson => embedVideo(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+    .catch(error => {
+      $('#js-video-error-message').text(`Something went wrong, please try again later.`);
     });
 }
 
-
-
 function songArtistInfo () {
   console.log('songArtistInfo ran');
-  $('form').on('click', '.submitButton', event => {
+  $('form').submit(event => {
     event.preventDefault();
   const search = $('#userSelectedArtist').val() + $('#userSelectedSong').val();
-  const maxResults = 10;
+  $(`#results-list`).removeClass(`hidden`);
   getVideo(search);
   getLyrics(search);
 });
