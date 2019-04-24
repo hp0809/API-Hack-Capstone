@@ -10,7 +10,7 @@ function formatQueryParams(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
-
+//
 function embedVideo(responseJson) {
   console.log(responseJson);
   $('.video').empty();
@@ -27,7 +27,7 @@ function embedVideo(responseJson) {
       <img src="${responseJson.items[i].snippet.thumbnails.default.url}">
       </li>`
       )
-    $(`h3`).on(`click`, event => {
+    $(`h3`).on(`click`, event => { 
       $(`#results-list`).remove();
       $('.results').replaceWith(`<div id="player" class="video"><iframe width="560" height="315" src="https://www.youtube.com/embed/${responseJson.items[i].id.videoId}?enablejsapi=1"></iframe></div>`);
       });
