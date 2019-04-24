@@ -16,6 +16,9 @@
     
   }
   
+  main p {
+      padding-top:10px;
+  }
   h1 {
     padding-top: 25px;
   }
