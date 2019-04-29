@@ -13,7 +13,6 @@ function formatQueryParams(params) {
 
 //When the user searches the artist and song a list of videos. The user will choose one and it will be embedded. The user can search multiple times in the same page.
 function embedVideo(responseJson) {
-  console.log(responseJson);
   $('.video').empty();
   $(`#results-list`).empty();
   $(`#player`).replaceWith($(`<div class="results">
@@ -36,11 +35,9 @@ function embedVideo(responseJson) {
   }
 
 function displayLyrics(responseJson) {
-  console.log(responseJson)
   $('.lyrics').empty();
   $('#js-lyrics-error-message').empty();
   $('.lyrics').append(`<pre>${responseJson.mus[0].text}</pre>`);
-  console.log(`${responseJson.mus[0].text}`);
   $('.songArtistInfo').removeClass('hidden');
   $(`.lyrics`).removeClass(`hidden`);
 }
@@ -53,7 +50,6 @@ function getLyrics(query) {
   }
   const queryString = formatQueryParams(params);
   const url = searchLyricsURL + '?' + queryString;
-  console.log(url);
 
    fetch(url)
     .then(response => {
@@ -86,7 +82,6 @@ function getVideo(query, videoEmbeddable=true, maxResults=3) {
         return response.json();
       }
       throw new Error(response.statusText);
-      console.log(response.statusText);
     })
     .then(responseJson => embedVideo(responseJson))
     .catch(error => {
@@ -95,7 +90,6 @@ function getVideo(query, videoEmbeddable=true, maxResults=3) {
 }
 
 function songArtistInfo () {
-  console.log('songArtistInfo ran');
   $('form').submit(event => {
     event.preventDefault();
   const search = $('#userSelectedArtist').val() + $('#userSelectedSong').val();
