@@ -2,10 +2,25 @@
 
 A simple app that lets you search your favourite music video and gives you the lyrics to sing along and never miss a word!
 
-* Screenshot 1 Main Screen
-* Screenshot 2 Choose Video
-* Screenshot 3 Start to Sing
-* Screenshot 4 About
+## Sreenshots
+
+Main Screen
+
+![](screenshots/main.png)
+
+Choose Video
+
+![](screenshots/choice.png)
+
+Time to sing!
+
+![](screenshots/singtime.png)
+
+About Page
+
+![](screenshots/about.png)
+
+## Go check it out!
 
 [LIVE](https://hp0809.github.io/Sing-Along/)
 
