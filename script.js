@@ -10,7 +10,8 @@ function formatQueryParams(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
-//
+
+//When the user searches the artist and song a list of videos. The user will choose one and it will be embedded. The user can search multiple times in the same page.
 function embedVideo(responseJson) {
   console.log(responseJson);
   $('.video').empty();
