@@ -1,5 +1,5 @@
 const videoApiKey =
-'insert later'; 
+'AIzaSyBM4OnGVBii8BA51unrlgRMHOT5yeMdUGo'; 
 const searchVideoURL = 'https://www.googleapis.com/youtube/v3/search';
 
 const lyricsApiKey = 'insert later';
