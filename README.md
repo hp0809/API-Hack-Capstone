@@ -2,7 +2,7 @@
 
 A simple app that lets you search your favourite music video and gives you the lyrics to sing along and never miss a word!
 
-## Sreenshots
+## Screenshots
 
 Main Screen
 
@@ -26,7 +26,7 @@ About Page
 
 When you visit Sing Along, you enter the artist and the song you wish to sing along with. You will then get a choice of three videos from youtube (just in case there is a certain version you want). After choosing your video, sing your heart out!
 
-## Buildt with:
+## Built with:
 Tech used:
  * HTML5
  * CSS3
