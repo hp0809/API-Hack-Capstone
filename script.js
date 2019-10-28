@@ -2,7 +2,7 @@ const videoApiKey =
 'AIzaSyBM4OnGVBii8BA51unrlgRMHOT5yeMdUGo'; 
 const searchVideoURL = 'https://www.googleapis.com/youtube/v3/search';
 
-const lyricsApiKey = 'insert later';
+const lyricsApiKey = '0020098da67bd5dc1b21c2522b2edf4f';
 const searchLyricsURL = 'https://api.vagalume.com.br/search.php';
 
 function formatQueryParams(params) {
