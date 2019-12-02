@@ -1,5 +1,5 @@
 const videoApiKey =
-'AIzaSyC5lDkPtn4c2jFduPfWy2Jd961RasV4Rfw'; 
+'AIzaSyBM4OnGVBii8BA51unrlgRMHOT5yeMdUGo'; 
 const searchVideoURL = 'https://www.googleapis.com/youtube/v3/search';
 
 const lyricsApiKey = '0020098da67bd5dc1b21c2522b2edf4f';
